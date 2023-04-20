@@ -1,4 +1,5 @@
 const express = require('express')
+const patientRouter = require('./src/routes/patient')
 const app = express()
 
 app.use(express.json())
@@ -8,8 +9,8 @@ app.use(express.urlencoded({ extended: true }))
  * @param {Response} res;
  */
 
-app.get('/', (req, res) => {
-  res.send('Hello World')
-})
+app.use('/patient', patientRouter)
 
-app.listen(5000)
+app.listen(5000, () => {
+  console.log('Server started on port 3000')
+})
