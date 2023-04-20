@@ -4,7 +4,8 @@
   "description": "Open Source Patient Service",
   "main": "src/index.js",
   "scripts": {
-    "test": "nodemon src/index.js"
+    "test": "jest",
+    "start": "nodemon src/index.js"
   },
   "author": "Mckinsey and Company",
   "license": "ISC",
