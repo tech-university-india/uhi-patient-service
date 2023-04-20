@@ -1,5 +1,10 @@
 const db = require('../models')
 
+const checkIfPatientExists = async (abhaId) => {
+  const patient = await db.Patient.findOne({ where: { abhaId } })
+  return patient // frontend will be showing the available options in KYC and LINK possiblities
+}
+
 const createPatient = async (name, email) => {
   const patient = await db.Patient.create({ name, email })
   return patient
@@ -25,6 +30,7 @@ const deletePatient = async (id) => {
 }
 
 module.exports = {
+  checkIfPatientExists,
   createPatient,
   getPatients,
   getPatient,

@@ -1,5 +1,15 @@
 const patientService = require('../services/patient')
 
+const checkIfPatientExists = async (req, res) => {
+  try {
+    const { abhaId } = req.body
+    const patient = await patientService.checkIfPatientExists(abhaId)
+    res.status(200).json(patient)
+  } catch (error) {
+    res.status(500).json(error.message)
+  }
+}
+
 const createPatient = async (req, res) => {
   try {
     const { name, email } = req.body
@@ -48,6 +58,7 @@ const deletePatient = async (req, res) => {
 }
 
 module.exports = {
+  checkIfPatientExists,
   createPatient,
   getPatients,
   getPatient,
