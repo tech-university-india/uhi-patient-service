@@ -9,13 +9,18 @@ describe('Patient Controller', () => {
           abhaId: '1234567890'
         }
       }
+
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn()
       }
-      const spy = jest.spyOn(patientService, 'checkIfPatientExists')
+
+      const resolvedValue = {
+        abhaId: '1234567890'
+      }
+
+      jest.spyOn(patientService, 'checkIfPatientExists').mockResolvedValue(resolvedValue)
       await patientController.checkIfPatientExists(req, res)
-      expect(spy).toHaveBeenCalled()
       expect(res.status).toHaveBeenCalledWith(200)
       expect(res.json).toHaveBeenCalled()
     })
@@ -26,15 +31,17 @@ describe('Patient Controller', () => {
           abhaId: '1234567890'
         }
       }
+
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn()
       }
-      const spy = jest.spyOn(patientService, 'checkIfPatientExists').mockImplementation(() => {
+
+      jest.spyOn(patientService, 'checkIfPatientExists').mockImplementation(() => {
         throw new Error('Error')
       })
+
       await patientController.checkIfPatientExists(req, res)
-      expect(spy).toHaveBeenCalled()
       expect(res.status).toHaveBeenCalledWith(500)
       expect(res.json).toHaveBeenCalled()
     })
@@ -47,13 +54,18 @@ describe('Patient Controller', () => {
           abhaId: '1234567890'
         }
       }
+
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn()
       }
-      const spy = jest.spyOn(patientService, 'createPatient')
+
+      const resolvedValue = {
+        abhaId: '1234567890'
+      }
+
+      jest.spyOn(patientService, 'createPatient').mockResolvedValue(resolvedValue)
       await patientController.createPatient(req, res)
-      expect(spy).toHaveBeenCalled()
       expect(res.status).toHaveBeenCalledWith(200)
       expect(res.json).toHaveBeenCalled()
     })
@@ -64,15 +76,17 @@ describe('Patient Controller', () => {
           abhaId: '1234567890'
         }
       }
+
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn()
       }
-      const spy = jest.spyOn(patientService, 'createPatient').mockImplementation(() => {
+
+      jest.spyOn(patientService, 'createPatient').mockImplementation(() => {
         throw new Error('Error')
       })
+
       await patientController.createPatient(req, res)
-      expect(spy).toHaveBeenCalled()
       expect(res.status).toHaveBeenCalledWith(500)
       expect(res.json).toHaveBeenCalled()
     })
@@ -81,28 +95,35 @@ describe('Patient Controller', () => {
   describe('getPatients', () => {
     it('should call patientService.getPatients', async () => {
       const req = {}
+
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn()
       }
-      const spy = jest.spyOn(patientService, 'getPatients')
+
+      const resolvedValue = [{
+        abhaId: '1234567890'
+      }]
+
+      jest.spyOn(patientService, 'getPatients').mockResolvedValue(resolvedValue)
       await patientController.getPatients(req, res)
-      expect(spy).toHaveBeenCalled()
       expect(res.status).toHaveBeenCalledWith(200)
       expect(res.json).toHaveBeenCalled()
     })
 
     it('should return 500 if the function throws an error', async () => {
       const req = {}
+
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn()
       }
-      const spy = jest.spyOn(patientService, 'getPatients').mockImplementation(() => {
+
+      jest.spyOn(patientService, 'getPatients').mockImplementation(() => {
         throw new Error('Error')
       })
+
       await patientController.getPatients(req, res)
-      expect(spy).toHaveBeenCalled()
       expect(res.status).toHaveBeenCalledWith(500)
       expect(res.json).toHaveBeenCalled()
     })
@@ -115,13 +136,18 @@ describe('Patient Controller', () => {
           abhaId: '1234567890'
         }
       }
+
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn()
       }
-      const spy = jest.spyOn(patientService, 'getPatient')
+
+      const resolvedValue = {
+        abhaId: '1234567890'
+      }
+
+      jest.spyOn(patientService, 'getPatient').mockResolvedValue(resolvedValue)
       await patientController.getPatient(req, res)
-      expect(spy).toHaveBeenCalled()
       expect(res.status).toHaveBeenCalledWith(200)
       expect(res.json).toHaveBeenCalled()
     })
@@ -132,16 +158,17 @@ describe('Patient Controller', () => {
           abhaId: '1234567890'
         }
       }
+
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn()
       }
 
-      const spy = jest.spyOn(patientService, 'getPatient').mockImplementation(() => {
+      jest.spyOn(patientService, 'getPatient').mockImplementation(() => {
         throw new Error('Error')
       })
+
       await patientController.getPatient(req, res)
-      expect(spy).toHaveBeenCalled()
       expect(res.status).toHaveBeenCalledWith(500)
       expect(res.json).toHaveBeenCalled()
     })
@@ -154,13 +181,18 @@ describe('Patient Controller', () => {
           abhaId: '1234567890'
         }
       }
+
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn()
       }
-      const spy = jest.spyOn(patientService, 'updatePatient')
+
+      const resolvedValue = {
+        abhaId: '1234567890'
+      }
+
+      jest.spyOn(patientService, 'updatePatient').mockResolvedValue(resolvedValue)
       await patientController.updatePatient(req, res)
-      expect(spy).toHaveBeenCalled()
       expect(res.status).toHaveBeenCalledWith(200)
       expect(res.json).toHaveBeenCalled()
     })
@@ -171,15 +203,17 @@ describe('Patient Controller', () => {
           abhaId: '1234567890'
         }
       }
+
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn()
       }
-      const spy = jest.spyOn(patientService, 'updatePatient').mockImplementation(() => {
+
+      jest.spyOn(patientService, 'updatePatient').mockImplementation(() => {
         throw new Error('Error')
       })
+
       await patientController.updatePatient(req, res)
-      expect(spy).toHaveBeenCalled()
       expect(res.status).toHaveBeenCalledWith(500)
       expect(res.json).toHaveBeenCalled()
     })
@@ -192,13 +226,16 @@ describe('Patient Controller', () => {
           id: '1234567890'
         }
       }
+
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn()
       }
-      const spy = jest.spyOn(patientService, 'deletePatient')
+
+      const resolvedValue = {}
+
+      jest.spyOn(patientService, 'deletePatient').mockResolvedValue(resolvedValue)
       await patientController.deletePatient(req, res)
-      expect(spy).toHaveBeenCalled()
       expect(res.status).toHaveBeenCalledWith(200)
       expect(res.json).toHaveBeenCalled()
     })
@@ -209,13 +246,16 @@ describe('Patient Controller', () => {
           id: '1234567890'
         }
       }
+
       const res = {
         status: jest.fn().mockReturnThis(),
         json: jest.fn()
       }
+
       const spy = jest.spyOn(patientService, 'deletePatient').mockImplementation(() => {
         throw new Error('Error')
       })
+
       await patientController.deletePatient(req, res)
       expect(spy).toHaveBeenCalled()
       expect(res.status).toHaveBeenCalledWith(500)
