@@ -1,9 +1,19 @@
 const patientService = require('../services/patient')
 
+const checkIfPatientExists = async (req, res) => {
+  try {
+    const { abhaId } = req.body
+    const patient = await patientService.checkIfPatientExists(abhaId)
+    res.status(200).json(patient)
+  } catch (error) {
+    res.status(500).json(error.message)
+  }
+}
+
 const createPatient = async (req, res) => {
   try {
-    const { name, email } = req.body
-    const patient = await patientService.createPatient(name, email)
+    const { abhaId, name, gender, yearOfBirth, monthOfBirth, dayOfBirth, address, mobile, healthNumber } = req.body
+    const patient = await patientService.createPatient(abhaId, name, gender, yearOfBirth, monthOfBirth, dayOfBirth, address, mobile, healthNumber)
     res.status(200).json(patient)
   } catch (error) {
     res.status(500).json(error.message)
@@ -21,7 +31,8 @@ const getPatients = async (req, res) => {
 
 const getPatient = async (req, res) => {
   try {
-    const patient = await patientService.getPatient(req.params.id)
+    const { abhaId } = req.body
+    const patient = await patientService.getPatient(abhaId)
     res.status(200).json(patient)
   } catch (error) {
     res.status(500).json(error.message)
@@ -30,8 +41,8 @@ const getPatient = async (req, res) => {
 
 const updatePatient = async (req, res) => {
   try {
-    const { name, email } = req.body
-    const patient = await patientService.updatePatient(req.params.id, name, email)
+    const { abhaId, name, gender, yearOfBirth, monthOfBirth, dayOfBirth, address, mobile, healthNumber } = req.body
+    const patient = await patientService.updatePatient(abhaId, name, gender, yearOfBirth, monthOfBirth, dayOfBirth, address, mobile, healthNumber)
     res.status(200).json(patient)
   } catch (error) {
     res.status(500).json(error.message)
@@ -48,6 +59,7 @@ const deletePatient = async (req, res) => {
 }
 
 module.exports = {
+  checkIfPatientExists,
   createPatient,
   getPatients,
   getPatient,
