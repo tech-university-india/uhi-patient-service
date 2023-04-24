@@ -25,6 +25,24 @@ describe('Patient Controller', () => {
       expect(res.json).toHaveBeenCalled()
     })
 
+    it('should return 404 if the Patient doesnt exist', async () => {
+      const req = {
+        body: {
+          abhaId: '1234567890'
+        }
+      }
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn()
+      }
+      jest.spyOn(patientService, 'checkIfPatientExists').mockImplementation(() => {
+        throw new Error('Patient does not exist')
+      })
+      await patientController.checkIfPatientExists(req, res)
+      expect(res.status).toHaveBeenCalledWith(404)
+      expect(res.json).toHaveBeenCalled()
+    })
+
     it('should return 500 if the function throws an error', async () => {
       const req = {
         body: {
@@ -151,6 +169,23 @@ describe('Patient Controller', () => {
       expect(res.status).toHaveBeenCalledWith(200)
       expect(res.json).toHaveBeenCalled()
     })
+    it('should return 404 if the Patient doesnt exist', async () => {
+      const req = {
+        body: {
+          abhaId: '1234567890'
+        }
+      }
+      const res = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn()
+      }
+      jest.spyOn(patientService, 'getPatient').mockImplementation(() => {
+        throw new Error('Patient does not exist with this Abha-id')
+      })
+      await patientController.getPatient(req, res)
+      expect(res.status).toHaveBeenCalledWith(404)
+      expect(res.json).toHaveBeenCalled()
+    })
 
     it('should return 500 if the function throws an error', async () => {
       const req = {
@@ -222,8 +257,8 @@ describe('Patient Controller', () => {
   describe('deletePatient', () => {
     it('should call patientService.deletePatient', async () => {
       const req = {
-        params: {
-          id: '1234567890'
+        body: {
+          abhaId: '1234567890'
         }
       }
 
@@ -232,9 +267,7 @@ describe('Patient Controller', () => {
         json: jest.fn()
       }
 
-      const resolvedValue = {}
-
-      jest.spyOn(patientService, 'deletePatient').mockResolvedValue(resolvedValue)
+      jest.spyOn(patientService, 'deletePatient').mockResolvedValue()
       await patientController.deletePatient(req, res)
       expect(res.status).toHaveBeenCalledWith(200)
       expect(res.json).toHaveBeenCalled()
@@ -242,8 +275,8 @@ describe('Patient Controller', () => {
 
     it('should return 500 if the function throws an error', async () => {
       const req = {
-        params: {
-          id: '1234567890'
+        body: {
+          abhaId: '1234567890'
         }
       }
 
@@ -252,12 +285,11 @@ describe('Patient Controller', () => {
         json: jest.fn()
       }
 
-      const spy = jest.spyOn(patientService, 'deletePatient').mockImplementation(() => {
+      jest.spyOn(patientService, 'deletePatient').mockImplementation(() => {
         throw new Error('Error')
       })
 
       await patientController.deletePatient(req, res)
-      expect(spy).toHaveBeenCalled()
       expect(res.status).toHaveBeenCalledWith(500)
       expect(res.json).toHaveBeenCalled()
     })
