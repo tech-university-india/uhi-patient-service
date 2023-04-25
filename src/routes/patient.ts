@@ -6,7 +6,7 @@ router.get('/checkIfPatientExists/:abhaId', patientController.checkIfPatientExis
 router.post('/create', patientController.createPatient)
 router.get('/patients', patientController.getPatients)
 router.get('/get/:abhaId', patientController.getPatient)
-router.put('/update/:abhaId', patientController.updatePatient)
+router.put('/update', patientController.updatePatient)
 router.delete('/delete/:abhaId', patientController.deletePatient)
 
 export default router;

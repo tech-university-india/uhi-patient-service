@@ -33,6 +33,10 @@ describe('Patient Service', () => {
         healthNumber: '123456789'
       })
     })
+    it('should throw an error if patient does not exist', async () => {
+      jest.spyOn(db.Patient, 'findOne').mockResolvedValue(null)
+      await expect(patientService.checkIfPatientExists('1234567890')).rejects.toThrow('Patient does not exist')
+    })
   })
   describe('createPatient', () => {
     it('should create a patient', async () => {
@@ -150,6 +154,11 @@ describe('Patient Service', () => {
         healthNumber: '123456789'
       })
     })
+    it('should throw an error if patient does not exist with ABHA-id', async () => {
+      jest.spyOn(db.Patient, 'findOne').mockResolvedValue(null)
+      await expect(patientService.getPatient(2)).rejects.toThrow('Patient does not exist with this Abha-id')
+    }
+    )
   })
   describe('updatePatient', () => {
     it('should update a patient for a particular id', async () => {

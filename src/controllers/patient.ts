@@ -1,15 +1,16 @@
-import * as patientService from '../services/patient';
+import patientService from '../services/patient';
 
 export const checkIfPatientExists = async (req, res) => {
   try {
     const { abhaId } = req.params
     const patient = await patientService.checkIfPatientExists(abhaId)
-    if (!patient) {
-      return res.status(200).json({ message: 'Patient does not exist' })
-    }
     res.status(200).json(patient)
   } catch (error) {
-    res.status(500).json(error.message)
+    if (error.message === 'Patient does not exist') {
+      res.status(404).json({ exist: false, message: error.message })
+    } else {
+      res.status(500).json(error.message)
+    }
   }
 }
 
@@ -38,7 +39,9 @@ export const getPatient = async (req, res) => {
     const patient = await patientService.getPatient(abhaId)
     res.status(200).json(patient)
   } catch (error) {
-    res.status(500).json(error.message)
+    if (error.message === 'Patient does not exist with this Abha-id') { res.status(404).json(error.message) } else {
+      res.status(500).json(error.message)
+    }
   }
 }
 
