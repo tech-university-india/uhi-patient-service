@@ -1,6 +1,6 @@
-const schemas = require('./schemas')
+import * as schemas from './schemas'
 
-exports.abhaIdValidator = (req, res, next) => {
+export const abhaIdValidator = (req, res, next) => {
   const { error } = schemas.abhaIdValidation.validate(req.body)
   if (error) {
     return res.status(400).json(error.message)
@@ -8,10 +8,15 @@ exports.abhaIdValidator = (req, res, next) => {
   next()
 }
 
-exports.createPatientValidation = (req, res, next) => {
+export const createPatientValidation = (req, res, next) => {
   const { error } = schemas.createPatientValidation.validate(req.body)
   if (error) {
     return res.status(400).json(error.message)
   }
   next()
+}
+
+export default {
+  abhaIdValidator,
+  createPatientValidation
 }

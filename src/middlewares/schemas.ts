@@ -1,9 +1,9 @@
-const joi = require('joi')
-exports.abhaIdValidation = joi.object({
+import joi from 'joi'
+export const abhaIdValidation = joi.object({
   abhaId: joi.string().required()
 })
 
-exports.createPatientValidation = joi.object({
+export const createPatientValidation = joi.object({
   abhaId: joi.string().required(),
   name: joi.string().required(),
   gender: joi.string().valid('M', 'F').required(),
@@ -19,3 +19,8 @@ exports.createPatientValidation = joi.object({
   dayOfBirth: joi.number().min(1).max(31).required(),
   healthNumber: joi.string().regex(/\d{2}-?\d{4}-?\d{4}-?\d{4}$/).required()
 })
+
+export default {
+  abhaIdValidation,
+  createPatientValidation
+}
