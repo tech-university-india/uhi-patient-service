@@ -1,11 +1,11 @@
-const patientController = require('../../src/controllers/patient')
-const patientService = require('../../src/services/patient')
+import patientController from '../../src/controllers/patient'
+import patientService from '../../src/services/patient'
 
 describe('Patient Controller', () => {
   describe('checkIfPatientExists', () => {
     it('should return 200 if there was no error', async () => {
       const req = {
-        body: {
+        params: {
           abhaId: '1234567890'
         }
       }
@@ -45,7 +45,7 @@ describe('Patient Controller', () => {
 
     it('should return 500 if the function throws an error', async () => {
       const req = {
-        body: {
+        params: {
           abhaId: '1234567890'
         }
       }
@@ -150,7 +150,7 @@ describe('Patient Controller', () => {
   describe('getPatient', () => {
     it('should call patientService.getPatient', async () => {
       const req = {
-        body: {
+        params: {
           abhaId: '1234567890'
         }
       }
@@ -189,7 +189,7 @@ describe('Patient Controller', () => {
 
     it('should return 500 if the function throws an error', async () => {
       const req = {
-        body: {
+        params: {
           abhaId: '1234567890'
         }
       }
@@ -212,7 +212,7 @@ describe('Patient Controller', () => {
   describe('updatePatient', () => {
     it('should call patientService.updatePatient', async () => {
       const req = {
-        body: {
+        params: {
           abhaId: '1234567890'
         }
       }

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-const patientService = require('../../src/services/patient')
-const db = require('../../src/models')
+import patientService from '../../src/services/patient'
+import db from '../../src/models'
 
 describe('Patient Service', () => {
   describe('checkIfPatientExists', () => {
@@ -174,9 +174,10 @@ describe('Patient Service', () => {
         healthNumber: '123456789'
       }]])
       const patient = await patientService.updatePatient({
-        abhaId: '33333333',
-        name: 'Kartik Goel',
-        yearOfBirth: 2000,
+        abhaId: '1234567890',
+        name: 'John Doe',
+        gender: 'MALE',
+        yearOfBirth: 1990,
         monthOfBirth: 1,
         dayOfBirth: 1,
         address: '123 Main St',
@@ -198,9 +199,9 @@ describe('Patient Service', () => {
   })
   describe('deletePatient', () => {
     it('should delete a patient for a particular id', async () => {
-      jest.spyOn(db.Patient, 'destroy').mockResolvedValue()
+      jest.spyOn(db.Patient, 'destroy').mockResolvedValue(" ")
       const patient = await patientService.deletePatient(2)
-      expect(patient).toBe()
+      expect(patient).toBe(" ")
     })
   })
 })

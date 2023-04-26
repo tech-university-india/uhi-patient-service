@@ -1,6 +1,6 @@
-const db = require('../models')
+import db from '../models'
 
-const checkIfPatientExists = async (abhaId) => {
+export const checkIfPatientExists = async (abhaId) => {
   const patient = await db.Patient.findOne({ where: { abhaId } })
   if (patient) {
     return patient
@@ -16,12 +16,12 @@ const createPatient = async ({ abhaId, name, gender, yearOfBirth, monthOfBirth, 
   return patient
 }
 
-const getPatients = async () => {
+export const getPatients = async () => {
   const patients = await db.Patient.findAll()
   return patients
 }
 
-const getPatient = async (abhaId) => {
+export const getPatient = async (abhaId) => {
   const patient = await db.Patient.findOne({ where: { abhaId } })
   // check if patient exists
   if (patient) {
@@ -38,7 +38,7 @@ const deletePatient = async (abhaId) => {
   await db.Patient.destroy({ where: { abhaId } })
 }
 
-module.exports = {
+export default {
   checkIfPatientExists,
   createPatient,
   getPatients,
