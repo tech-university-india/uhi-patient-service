@@ -1,7 +1,7 @@
 import { Router } from 'express'
 const router = Router()
 import patientController from '../controllers/patient'
-import * as validator from '../middlewares/middleware'
+import validator from '../middlewares/middleware'
 
 router.get('/checkIfPatientExists/:abhaId', validator.abhaIdValidator, patientController.checkIfPatientExists)
 router.post('/createPatient', validator.createPatientValidation, patientController.createPatient)
