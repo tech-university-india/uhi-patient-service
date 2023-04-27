@@ -1,4 +1,4 @@
-import * as schemas from './schemas'
+import * as schemas from './schemas.js'
 
 export const abhaIdValidator = (req, res, next) => {
   const { error } = schemas.abhaIdValidation.validate(req.body)

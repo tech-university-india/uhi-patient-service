@@ -1,4 +1,4 @@
-import db from '../models'
+import db from '../models/index.js'
 
 export const checkIfPatientExists = async (abhaId) => {
   const patient = await db.Patient.findOne({ where: { abhaId } })

@@ -2,12 +2,13 @@
   "name": "uhi-patient-service",
   "version": "1.0.0",
   "description": "Open Source Patient Service",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "type": "module",
   "scripts": {
     "test": "jest",
-    "build": "tsc",
-    "dev": "ts-node ./src/index.ts"
+    "build": "tsc && cp -R database dist/database",
+    "dev": "ts-node ./src/index.ts",
+    "start": "node ./dist/src/index.js"
   },
   "author": "Mckinsey and Company",
   "license": "ISC",

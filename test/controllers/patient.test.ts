@@ -267,7 +267,7 @@ describe('Patient Controller', () => {
         json: jest.fn()
       }
 
-      jest.spyOn(patientService, 'deletePatient').mockResolvedValue()
+      jest.spyOn(patientService, 'deletePatient').mockResolvedValue(undefined)
       await patientController.deletePatient(req, res)
       expect(res.status).toHaveBeenCalledWith(200)
       expect(res.json).toHaveBeenCalled()

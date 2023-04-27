@@ -1,4 +1,4 @@
-import patientService from '../services/patient';
+import patientService from '../services/patient.js';
 
 export const checkIfPatientExists = async (req, res) => {
   try {

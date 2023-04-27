@@ -1,4 +1,3 @@
-'use strict';
 import { Model } from 'sequelize';
 export default (sequelize, DataTypes): any => {
   class Patient extends Model {
