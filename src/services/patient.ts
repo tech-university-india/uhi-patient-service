@@ -6,7 +6,7 @@ export const checkIfPatientExists = async (abhaId: string): Promise<PatientInsta
   if (!patient) {
     throw new Error('Patient does not exist');
   }
-  return patient;
+  return ('Patient exists already');
 };
 
 interface PatientInfo {
