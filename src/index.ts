@@ -1,6 +1,6 @@
 import express from 'express'
 
-import patientRouter from './routes/patient.js'
+import patientRouter from './routes/patient'
 const app = express()
 
 app.use(express.json())

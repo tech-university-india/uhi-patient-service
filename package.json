@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Open Source Patient Service",
   "main": "src/index.ts",
-  "type": "module",
   "scripts": {
     "test": "jest",
     "build": "tsc && cp -R database dist/database",
