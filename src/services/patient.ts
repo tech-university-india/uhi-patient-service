@@ -1,12 +1,12 @@
 import db from '../models';
 import { PatientInstance } from '../models/patient';
 
-export const checkIfPatientExists = async (abhaId: string): Promise<PatientInstance> => {
-  const patient = await db.Patient.findOne({ where: { abhaId } });
+export const checkIfPatientExists = async (abhaId: string): Promise<any> => {
+  let patient = await db.Patient.findOne({ where: { abhaId } });
   if (!patient) {
     throw new Error('Patient does not exist');
   }
-  return ('Patient exists already');
+  return "Patient exists";
 };
 
 interface PatientInfo {

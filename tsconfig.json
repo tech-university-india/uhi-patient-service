@@ -6,7 +6,7 @@
       "ES6"
     ],
     "sourceMap": true,
-    "outDir": "./dist",
+    "outDir": "./dist/src",
     "moduleResolution": "node",
     "esModuleInterop": true,
     "experimentalDecorators": true,
