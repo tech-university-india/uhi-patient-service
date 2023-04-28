@@ -23,10 +23,11 @@ interface PatientInfo {
 
 export const createPatient = async (patientInfo: PatientInfo): Promise<PatientInstance> => {
   let { abhaId, name, gender, yearOfBirth, monthOfBirth, dayOfBirth, address, mobile, healthNumber } = patientInfo;
-  if (!healthNumber.includes('-')) {
-    const healthNumberWithHyphen = healthNumber.slice(0, 2) + '-' + abhaId.slice(2, 6) + '-' + abhaId.slice(6, 10) + '-' + abhaId.slice(10, 14);
-    healthNumber = healthNumberWithHyphen;
+  // check if - is present in healthNumber, if not add at indices 2, 7, 12
+  if (healthNumber.indexOf('-') === -1) {
+    healthNumber = `${healthNumber.slice(0, 2)}-${healthNumber.slice(2, 6)}-${healthNumber.slice(6, 10)}-${healthNumber.slice(10, 14)}`;
   }
+
   const patient = await db.Patient.create({ abhaId, name, gender, yearOfBirth, monthOfBirth, dayOfBirth, address, mobile, healthNumber });
   return patient;
 };
