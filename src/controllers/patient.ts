@@ -4,10 +4,10 @@ import PatientServices from '../services/patient';
 export const checkIfPatientExists = async (req: Request, res: Response): Promise<void> => {
   try {
     const { abhaId } = req.params
-    const patient = await PatientServices.checkIfPatientExists(abhaId)
+    await PatientServices.checkIfPatientExists(abhaId)
     res.status(200).json({
       message: 'Patient exists', data: {
-        abhaId: patient.abhaId,
+        abhaId: abhaId,
       }
     })
   } catch (error) {
