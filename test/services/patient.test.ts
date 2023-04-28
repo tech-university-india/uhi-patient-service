@@ -199,9 +199,9 @@ describe('Patient Service', () => {
   })
   describe('deletePatient', () => {
     it('should delete a patient for a particular id', async () => {
-      jest.spyOn(db.Patient, 'destroy').mockResolvedValue([1])
+      jest.spyOn(db.Patient, 'destroy').mockResolvedValue(" ")
       const patient = await patientService.deletePatient(2)
-      expect(patient).toBe([1])
+      expect(patient).toBe(" ")
     })
   })
 })
