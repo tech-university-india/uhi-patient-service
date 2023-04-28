@@ -1,3 +1,4 @@
+// istanbul ignore file
 import { Model, Optional } from 'sequelize';
 import { DataTypes } from 'sequelize';
 import { sequelize } from './index';

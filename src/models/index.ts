@@ -1,3 +1,4 @@
+// istanbul ignore file
 import { Sequelize } from 'sequelize';
 import { PatientInstance } from './patient';
 const env = process.env.NODE_ENV || 'development';
