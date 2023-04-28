@@ -1,4 +1,7 @@
 import joi from 'joi'
+export const abhaIdValidation = joi.object({
+  abhaId: joi.string().required()
+})
 
 export const createPatientValidation = joi.object({
   abhaId: joi.string().required(),
@@ -18,5 +21,6 @@ export const createPatientValidation = joi.object({
 })
 
 export default {
+  abhaIdValidation,
   createPatientValidation
 }

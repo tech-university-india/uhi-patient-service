@@ -1,14 +1,22 @@
-import { Request, Response, NextFunction } from 'express';
-import { createPatientValidation as createPatientValidationSchema } from './schemas';
+import * as schemas from './schemas'
 
-export const createPatientValidation = (req: Request, res: Response, next: NextFunction): Response<any, Record<string, any>> => {
-  const { error } = createPatientValidationSchema.validate(req.body);
+export const abhaIdValidator = (req, res, next) => {
+  const { error } = schemas.abhaIdValidation.validate(req.body)
   if (error) {
-    return res.status(400).json(error.message);
+    return res.status(400).json(error.message)
   }
-  next();
-};
+  next()
+}
+
+export const createPatientValidation = (req, res, next) => {
+  const { error } = schemas.createPatientValidation.validate(req.body)
+  if (error) {
+    return res.status(400).json(error.message)
+  }
+  next()
+}
 
 export default {
-  createPatientValidation,
-};
+  abhaIdValidator,
+  createPatientValidation
+}

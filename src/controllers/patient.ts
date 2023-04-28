@@ -1,15 +1,10 @@
-import { Request, Response } from 'express';
-import PatientServices from '../services/patient';
+import patientService from '../services/patient';
 
-export const checkIfPatientExists = async (req: Request, res: Response): Promise<void> => {
+export const checkIfPatientExists = async (req, res) => {
   try {
     const { abhaId } = req.params
-    const patient = await PatientServices.checkIfPatientExists(abhaId)
-    res.status(200).json({
-      message: 'Patient exists', data: {
-        abhaId: patient.abhaId,
-      }
-    })
+    const patient = await patientService.checkIfPatientExists(abhaId)
+    res.status(200).json(patient)
   } catch (error) {
     if (error.message === 'Patient does not exist') {
       res.status(404).json({ exist: false, message: error.message })
@@ -19,32 +14,30 @@ export const checkIfPatientExists = async (req: Request, res: Response): Promise
   }
 }
 
-export const createPatient = async (req: Request, res: Response): Promise<void> => {
+export const createPatient = async (req, res) => {
   try {
     const { abhaId, name, gender, yearOfBirth, monthOfBirth, dayOfBirth, address, mobile, healthNumber } = req.body
-    const patient = await PatientServices.createPatient({ abhaId, name, gender, yearOfBirth, monthOfBirth, dayOfBirth, address, mobile, healthNumber })
-    res.status(200).json({
-      message: 'Patient created successfully', data: patient
-    })
+    const patient = await patientService.createPatient({ abhaId, name, gender, yearOfBirth, monthOfBirth, dayOfBirth, address, mobile, healthNumber })
+    res.status(200).json(patient)
   } catch (error) {
     res.status(500).json(error.message)
   }
 }
 
-export const getPatients = async (req: Request, res: Response): Promise<void> => {
+export const getPatients = async (req, res) => {
   try {
-    const patients = await PatientServices.getPatients()
-    res.status(200).json({ message: 'Patients fetched successfully', data: patients })
+    const patients = await patientService.getPatients()
+    res.status(200).json(patients)
   } catch (error) {
     res.status(500).json(error.message)
   }
 }
 
-export const getPatient = async (req: Request, res: Response): Promise<void> => {
+export const getPatient = async (req, res) => {
   try {
     const { abhaId } = req.params
-    const patient = await PatientServices.getPatient(abhaId)
-    res.status(200).json({ message: "Patient fetched successfully", data: patient })
+    const patient = await patientService.getPatient(abhaId)
+    res.status(200).json(patient)
   } catch (error) {
     if (error.message === 'Patient does not exist with this Abha-id') { res.status(404).json(error.message) } else {
       res.status(500).json(error.message)
@@ -52,21 +45,21 @@ export const getPatient = async (req: Request, res: Response): Promise<void> => 
   }
 }
 
-export const updatePatient = async (req: Request, res: Response): Promise<void> => {
+export const updatePatient = async (req, res) => {
   try {
     const { abhaId, name, gender, yearOfBirth, monthOfBirth, dayOfBirth, address, mobile, healthNumber } = req.body
-    const patient = await PatientServices.updatePatient({ abhaId, name, gender, yearOfBirth, monthOfBirth, dayOfBirth, address, mobile, healthNumber })
-    res.status(200).json({ message: 'Patient updated successfully', data: patient })
+    const patient = await patientService.updatePatient({ abhaId, name, gender, yearOfBirth, monthOfBirth, dayOfBirth, address, mobile, healthNumber })
+    res.status(200).json(patient)
   } catch (error) {
     res.status(500).json(error.message)
   }
 }
 
-export const deletePatient = async (req: Request, res: Response): Promise<void> => {
+export const deletePatient = async (req, res) => {
   try {
     const { abhaId } = req.params
-    await PatientServices.deletePatient(abhaId)
-    res.status(200).json({ message: 'Patient deleted successfully' })
+    await patientService.deletePatient(abhaId)
+    res.status(200).json({ message: 'Patient deleted' })
   } catch (error) {
     res.status(500).json(error.message)
   }
