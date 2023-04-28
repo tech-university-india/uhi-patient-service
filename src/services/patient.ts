@@ -23,7 +23,11 @@ interface PatientInfo {
 
 export const createPatient = async (patientInfo: PatientInfo): Promise<PatientInstance> => {
   let { abhaId, name, gender, yearOfBirth, monthOfBirth, dayOfBirth, address, mobile, healthNumber } = patientInfo;
-  // check if - is present in healthNumber, if not add at indices 2, 7, 12
+  const patientExists = await db.Patient.findOne({ where: { abhaId } });
+  if (patientExists) {
+    throw new Error('Patient already exists with this Abha-id');
+  }
+
   if (healthNumber.indexOf('-') === -1) {
     healthNumber = `${healthNumber.slice(0, 2)}-${healthNumber.slice(2, 6)}-${healthNumber.slice(6, 10)}-${healthNumber.slice(10, 14)}`;
   }
