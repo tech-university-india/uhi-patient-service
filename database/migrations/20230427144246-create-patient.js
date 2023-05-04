@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -7,43 +8,43 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       gender: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       yearOfBirth: {
-        type: Sequelize.NUMBER
+        type: Sequelize.NUMBER,
       },
       monthOfBirth: {
-        type: Sequelize.NUMBER
+        type: Sequelize.NUMBER,
       },
       dayOfBirth: {
-        type: Sequelize.NUMBER
+        type: Sequelize.NUMBER,
       },
       address: {
-        type: Sequelize.JSONB
+        type: Sequelize.JSONB,
       },
       mobile: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       healthNumber: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Patients');
-  }
+  },
 };
