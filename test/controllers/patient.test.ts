@@ -1,7 +1,7 @@
-import {Request, Response} from 'express';
+import { Request, Response } from 'express';
 import patientController from '../../src/controllers/patient';
 import patientService from '../../src/services/patient';
-import {PatientInstance} from '../../src/models/patient';
+import { PatientInstance } from '../../src/models/patient';
 
 describe('Patient Controller', () => {
   describe('checkIfPatientExists', () => {
@@ -9,7 +9,7 @@ describe('Patient Controller', () => {
       const req = {
         params: {
           abhaId: '1234567890',
-        },
+        }
       } as unknown as Request;
 
       const res = {
@@ -17,24 +17,14 @@ describe('Patient Controller', () => {
         json: jest.fn(),
       } as unknown as Response;
 
-      const resolvedValue = {
-        abhaId: '1234567890',
-      } as unknown as PatientInstance;
+      jest.spyOn(patientService, 'checkIfPatientExists').mockResolvedValue('Patient exists');
 
-      jest
-        .spyOn(patientService, 'checkIfPatientExists')
-        .mockResolvedValue(resolvedValue);
       await patientController.checkIfPatientExists(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith({
-        message: 'Patient exists',
-        data: {
-          abhaId: resolvedValue.abhaId,
-        },
-      });
+      expect(res.json).toHaveBeenCalledWith({ exist: true, message: 'Patient exists' });
     });
 
-    it('should return 404 if the Patient doesnt exist', async () => {
+    it('should return 200 if the Patient doesnt exist', async () => {
       const req = {
         params: {
           abhaId: '1234567890',
@@ -46,16 +36,11 @@ describe('Patient Controller', () => {
         json: jest.fn(),
       } as unknown as Response;
 
-      jest
-        .spyOn(patientService, 'checkIfPatientExists')
-        .mockRejectedValue(new Error('Patient does not exist'));
+      jest.spyOn(patientService, 'checkIfPatientExists').mockResolvedValue('Patient does not exist');
 
       await patientController.checkIfPatientExists(req, res);
-      expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({
-        exist: false,
-        message: 'Patient does not exist',
-      });
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith({ exist: false, message: 'Patient does not exist' });
     });
 
     it('should return 500 if the function throws an error', async () => {
@@ -192,21 +177,19 @@ describe('Patient Controller', () => {
       } as unknown as Response;
 
       const resolvedValue = {
-        abhaId: '1234567890',
-      } as unknown as PatientInstance;
-
+        data: {
+          abhaId: '1234567890',
+        } as unknown as PatientInstance,
+        message: 'Patient fetched successfully'
+      }
       jest.spyOn(patientService, 'getPatient').mockResolvedValue(resolvedValue);
       await patientController.getPatient(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
-      expect(res.json).toHaveBeenCalledWith({
-        message: 'Patient fetched successfully',
-        data: {
-          abhaId: resolvedValue.abhaId,
-        },
-      });
+      expect(res.json).toHaveBeenCalledWith(resolvedValue);
+
     });
 
-    it('should return 404 if the Patient doesnt exist', async () => {
+    it('should return 200 when patient does not exist', async () => {
       const req = {
         params: {
           abhaId: '1234567890',
@@ -218,17 +201,15 @@ describe('Patient Controller', () => {
         json: jest.fn(),
       } as unknown as Response;
 
-      jest
-        .spyOn(patientService, 'getPatient')
-        .mockRejectedValue(
-          new Error('Patient does not exist with this Abha-id')
-        );
+      const resolvedValue = {
+        data: null as unknown as PatientInstance,
+        message: 'Patient does not exist'
+      }
 
+      jest.spyOn(patientService, 'getPatient').mockResolvedValue(resolvedValue);
       await patientController.getPatient(req, res);
-      expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith(
-        'Patient does not exist with this Abha-id'
-      );
+      expect(res.status).toHaveBeenCalledWith(200);
+      expect(res.json).toHaveBeenCalledWith(resolvedValue);
     });
 
     it('should return 500 if the function throws an error', async () => {

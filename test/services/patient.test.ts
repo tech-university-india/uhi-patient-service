@@ -11,13 +11,12 @@ describe('Patient Service', () => {
       expect(result).toEqual('Patient exists');
     });
 
-    it('should throw an error if patient does not exist', async () => {
-      jest.spyOn(db.Patient, 'findOne').mockResolvedValueOnce(null as any);
-      await expect(patientService.checkIfPatientExists('123')).rejects.toThrow(
-        'Patient does not exist'
-      );
-    });
-  });
+    it('should return "Patient does not exist" if patient does not exist', async () => {
+      jest.spyOn(db.Patient, 'findOne').mockResolvedValueOnce(null as any)
+      const result = await patientService.checkIfPatientExists('123')
+      expect(result).toEqual('Patient does not exist')
+    })
+  })
 
   describe('createPatient', () => {
     it('should create a patient', async () => {
@@ -96,18 +95,17 @@ describe('Patient Service', () => {
 
   describe('getPatient', () => {
     it('should return a patient', async () => {
-      jest.spyOn(db.Patient, 'findOne').mockResolvedValueOnce('Patient' as any);
-      const result = await patientService.getPatient('123');
-      expect(result).toEqual('Patient');
-    });
+      jest.spyOn(db.Patient, 'findOne').mockResolvedValueOnce('Patient' as any)
+      const result = await patientService.getPatient('123')
+      expect(result).toEqual({ "data": "Patient", "message": "Patient exists with this Abha-id" })
+    })
 
-    it('should throw an error if patient does not exist', async () => {
-      jest.spyOn(db.Patient, 'findOne').mockResolvedValueOnce(null as any);
-      await expect(patientService.getPatient('123')).rejects.toThrow(
-        'Patient does not exist'
-      );
-    });
-  });
+    it('should return null if patient does not exist', async () => {
+      jest.spyOn(db.Patient, 'findOne').mockResolvedValueOnce(null as any)
+      const result = await patientService.getPatient('123')
+      expect(result).toEqual({ "data": null, "message": "Patient does not exist with this Abha-id" })
+    })
+  })
 
   describe('updatePatient', () => {
     it('should update a patient', async () => {
