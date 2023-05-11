@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
+import {Request, Response} from 'express';
 import patientController from '../../src/controllers/patient';
 import patientService from '../../src/services/patient';
-import { PatientInstance } from '../../src/models/patient';
+import {PatientInstance} from '../../src/models/patient';
 
 describe('Patient Controller', () => {
   describe('checkIfPatientExists', () => {
@@ -19,15 +19,18 @@ describe('Patient Controller', () => {
 
       const resolvedValue = {
         abhaId: '1234567890',
-      } as unknown as PatientInstance
+      } as unknown as PatientInstance;
 
-      jest.spyOn(patientService, 'checkIfPatientExists').mockResolvedValue(resolvedValue);
+      jest
+        .spyOn(patientService, 'checkIfPatientExists')
+        .mockResolvedValue(resolvedValue);
       await patientController.checkIfPatientExists(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
-        message: 'Patient exists', data: {
+        message: 'Patient exists',
+        data: {
           abhaId: resolvedValue.abhaId,
-        }
+        },
       });
     });
 
@@ -43,11 +46,16 @@ describe('Patient Controller', () => {
         json: jest.fn(),
       } as unknown as Response;
 
-      jest.spyOn(patientService, 'checkIfPatientExists').mockRejectedValue(new Error('Patient does not exist'));
+      jest
+        .spyOn(patientService, 'checkIfPatientExists')
+        .mockRejectedValue(new Error('Patient does not exist'));
 
       await patientController.checkIfPatientExists(req, res);
       expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith({ exist: false, message: 'Patient does not exist' });
+      expect(res.json).toHaveBeenCalledWith({
+        exist: false,
+        message: 'Patient does not exist',
+      });
     });
 
     it('should return 500 if the function throws an error', async () => {
@@ -62,9 +70,11 @@ describe('Patient Controller', () => {
         json: jest.fn(),
       } as unknown as Response;
 
-      jest.spyOn(patientService, 'checkIfPatientExists').mockImplementation(() => {
-        throw new Error('Error');
-      });
+      jest
+        .spyOn(patientService, 'checkIfPatientExists')
+        .mockImplementation(() => {
+          throw new Error('Error');
+        });
 
       await patientController.checkIfPatientExists(req, res);
       expect(res.status).toHaveBeenCalledWith(500);
@@ -89,13 +99,16 @@ describe('Patient Controller', () => {
         abhaId: '1234567890',
       } as unknown as PatientInstance;
 
-      jest.spyOn(patientService, 'createPatient').mockResolvedValue(resolvedValue);
+      jest
+        .spyOn(patientService, 'createPatient')
+        .mockResolvedValue(resolvedValue);
       await patientController.createPatient(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
-        message: 'Patient created successfully', data: {
+        message: 'Patient created successfully',
+        data: {
           abhaId: resolvedValue.abhaId,
-        }
+        },
       });
     });
 
@@ -130,15 +143,20 @@ describe('Patient Controller', () => {
         json: jest.fn(),
       } as unknown as Response;
 
-      const resolvedValue = [{
-        abhaId: '1234567890',
-      }] as unknown as PatientInstance[];
+      const resolvedValue = [
+        {
+          abhaId: '1234567890',
+        },
+      ] as unknown as PatientInstance[];
 
-      jest.spyOn(patientService, 'getPatients').mockResolvedValue(resolvedValue);
+      jest
+        .spyOn(patientService, 'getPatients')
+        .mockResolvedValue(resolvedValue);
       await patientController.getPatients(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
-        message: 'Patients fetched successfully', data: resolvedValue
+        message: 'Patients fetched successfully',
+        data: resolvedValue,
       });
     });
 
@@ -181,9 +199,10 @@ describe('Patient Controller', () => {
       await patientController.getPatient(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
-        message: 'Patient fetched successfully', data: {
+        message: 'Patient fetched successfully',
+        data: {
           abhaId: resolvedValue.abhaId,
-        }
+        },
       });
     });
 
@@ -199,11 +218,17 @@ describe('Patient Controller', () => {
         json: jest.fn(),
       } as unknown as Response;
 
-      jest.spyOn(patientService, 'getPatient').mockRejectedValue(new Error('Patient does not exist with this Abha-id'));
+      jest
+        .spyOn(patientService, 'getPatient')
+        .mockRejectedValue(
+          new Error('Patient does not exist with this Abha-id')
+        );
 
       await patientController.getPatient(req, res);
       expect(res.status).toHaveBeenCalledWith(404);
-      expect(res.json).toHaveBeenCalledWith('Patient does not exist with this Abha-id');
+      expect(res.json).toHaveBeenCalledWith(
+        'Patient does not exist with this Abha-id'
+      );
     });
 
     it('should return 500 if the function throws an error', async () => {
@@ -245,13 +270,16 @@ describe('Patient Controller', () => {
         abhaId: '1234567890',
       } as unknown as PatientInstance;
 
-      jest.spyOn(patientService, 'updatePatient').mockResolvedValue(resolvedValue);
+      jest
+        .spyOn(patientService, 'updatePatient')
+        .mockResolvedValue(resolvedValue);
       await patientController.updatePatient(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
-        message: 'Patient updated successfully', data: {
+        message: 'Patient updated successfully',
+        data: {
           abhaId: resolvedValue.abhaId,
-        }
+        },
       });
     });
 
@@ -294,7 +322,7 @@ describe('Patient Controller', () => {
       await patientController.deletePatient(req, res);
       expect(res.status).toHaveBeenCalledWith(200);
       expect(res.json).toHaveBeenCalledWith({
-        message: 'Patient deleted successfully'
+        message: 'Patient deleted successfully',
       });
     });
 
