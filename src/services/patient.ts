@@ -1,10 +1,11 @@
 import db from '../models';
-import { PatientInstance } from '../models/patient';
+import {PatientInstance} from '../models/patient';
 
 export const checkIfPatientExists = async (abhaId: string): Promise<any> => {
-  const patient = await db.Patient.findOne({ where: { abhaId } });
+  console.log(process.env.DB_HOST);
+  const patient = await db.Patient.findOne({where: {abhaId}});
   if (!patient) {
-    return "Patient does not exist";
+    return 'Patient does not exist';
   }
   return 'Patient exists';
 };
@@ -24,6 +25,7 @@ interface PatientInfo {
 export const createPatient = async (
   patientInfo: PatientInfo
 ): Promise<PatientInstance> => {
+  JSON.parse(JSON.stringify(patientInfo));
   let {
     abhaId,
     name,
@@ -35,7 +37,7 @@ export const createPatient = async (
     mobile,
     healthNumber,
   } = patientInfo;
-  const patientExists = await db.Patient.findOne({ where: { abhaId } });
+  const patientExists = await db.Patient.findOne({where: {abhaId}});
   if (patientExists) {
     throw new Error('Patient already exists with this Abha-id');
   }
@@ -66,18 +68,20 @@ export const getPatients = async (): Promise<PatientInstance[]> => {
   return patients;
 };
 
-export const getPatient = async (abhaId: string): Promise<{ data: PatientInstance, message: string }> => {
-  const patient = await db.Patient.findOne({ where: { abhaId } });
+export const getPatient = async (
+  abhaId: string
+): Promise<{data: PatientInstance; message: string}> => {
+  const patient = await db.Patient.findOne({where: {abhaId}});
   if (patient) {
     return {
       data: patient,
-      message: 'Patient exists with this Abha-id'
-    }
+      message: 'Patient exists with this Abha-id',
+    };
   } else {
     return {
       data: null,
-      message: 'Patient does not exist with this Abha-id'
-    }
+      message: 'Patient does not exist with this Abha-id',
+    };
   }
 };
 
@@ -106,18 +110,18 @@ export const updatePatient = async (
       mobile,
       healthNumber,
     },
-    { where: { abhaId } }
+    {where: {abhaId}}
   );
-  const patient = await db.Patient.findOne({ where: { abhaId } });
+  const patient = await db.Patient.findOne({where: {abhaId}});
   return patient;
 };
 
 export const deletePatient = async (abhaId: string): Promise<number> => {
-  const patient = await db.Patient.findOne({ where: { abhaId } });
+  const patient = await db.Patient.findOne({where: {abhaId}});
   if (!patient) {
     throw new Error('Patient does not exist');
   }
-  await db.Patient.destroy({ where: { abhaId } });
+  await db.Patient.destroy({where: {abhaId}});
   return 1;
 };
 
