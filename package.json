@@ -6,7 +6,7 @@
   "scripts": {
     "test": "jest",
     "build": "tsc && cp -R database dist/database",
-    "dev": "npx sequelize-cli db:migrate && ts-node ./src/index.ts",
+    "dev": "ts-node ./src/index.ts",
     "start": "node ./dist/src/index.js",
     "lint": "eslint . --ext .ts",
     "prettier": "prettier ./**/*.ts --write",

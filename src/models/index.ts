@@ -2,7 +2,7 @@
 import { Sequelize } from 'sequelize';
 import { PatientInstance } from './patient';
 const env = process.env.NODE_ENV || 'development';
-const config = require('../../database/config/config.json')[env];
+const config = require('../../database/config/config.js')[env];
 
 interface Database {
   sequelize: Sequelize;
