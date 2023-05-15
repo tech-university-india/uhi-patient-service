@@ -4,16 +4,13 @@ export const createPatientValidation = joi.object({
   abhaId: joi.string().required(),
   name: joi.string().required(),
   gender: joi.string().valid('M', 'F').required(),
-  mobile: joi
-    .string()
-    .regex(/^91-?\d{10}$/)
-    .required(),
+  mobile: joi.string().length(10),
   address: joi
     .object({
-      line: joi.string().required(),
-      district: joi.string().required(),
-      state: joi.string().required(),
-      pincode: joi.string().required(),
+      line: joi.string().required().allow(null),
+      district: joi.string().required().allow(null),
+      state: joi.string().required().allow(null),
+      pincode: joi.string().required().allow(null),
     })
     .required(),
   yearOfBirth: joi.number().required(),
@@ -22,7 +19,8 @@ export const createPatientValidation = joi.object({
   healthNumber: joi
     .string()
     .regex(/\d{2}-?\d{4}-?\d{4}-?\d{4}$/)
-    .required(),
+    .required()
+    .allow(null),
 });
 
 export default {
